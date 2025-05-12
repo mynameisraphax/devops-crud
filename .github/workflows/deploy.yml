@@ -13,31 +13,25 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Copy files via SSH
+      - name: Copy files via SSH (SCP)
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
           source: "."
-          target: "/var/www/devpos-app"
+          target: "/var/www/devops-crud"
           overwrite: true
 
-      - name: Restart PM2 on VPS
+      - name: SSH and deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           password: ${{ secrets.VPS_PASSWORD }}
+          port: 22
           script: |
-            cd /var/www/devpos-app
+            cd /var/www/devops-crud
             npm install --omit=dev
-            pm2 restart devpos-app || pm2 start server/server.js --name "devpos-app"
+            pm2 restart devops-crud || pm2 start server/server.js --name devops-crud
