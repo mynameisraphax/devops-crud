@@ -35,3 +35,4 @@ jobs:
             cd /var/www/devops-crud
             npm install --omit=dev
             pm2 restart devops-crud || pm2 start server/server.js --name devops-crud
+            echo "$(date) - Deploy realizado com sucesso!" >> /var/log/deploy.log
