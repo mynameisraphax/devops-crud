@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Login Teste CI/CD v3.0</title>
+  <title>Login - Estamos Online 🚀</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,9 +30,10 @@
       });
 
       if (res.ok) {
-        window.location.href = 'dashboard.html';
+        window.location.href = 'dashboard.html'; // Redirecionar após o login
       } else {
-        alert('Login inválido');
+        const error = await res.json();
+        alert(`Login inválido: ${error.message}`);
       }
     };
   </script>

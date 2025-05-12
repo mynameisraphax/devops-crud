@@ -16,6 +16,12 @@ app.get('/', (req, res) => {
 
 app.use('/api', routes);
 
+// Middleware de erro para capturar erros internos e fornecer mais detalhes
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Imprime o erro no console
+  res.status(500).send({ error: 'Erro interno do servidor' });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);

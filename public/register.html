@@ -36,7 +36,8 @@
         alert('Cadastro realizado! Faça o login.');
         window.location.href = 'index.html';
       } else {
-        alert('Erro ao cadastrar');
+        const error = await res.json();
+        alert(`Erro ao cadastrar: ${error.error}`);
       }
     };
   </script>
